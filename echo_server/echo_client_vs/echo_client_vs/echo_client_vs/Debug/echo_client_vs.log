@@ -1,7 +1,0 @@
-﻿  echo_client.c
-C:\Users\최재혁\Documents\github\Tcp_Socket_Programming\echo_server\echo_client.c(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
-C:\Users\최재혁\Documents\github\Tcp_Socket_Programming\echo_server\echo_client.c(45,16): warning C4477: 'printf' : 서식 문자열 '%s'에 'char *' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'int'입니다.
-C:\Users\최재혁\Documents\github\Tcp_Socket_Programming\echo_server\echo_client.c(59,46): warning C4047: '함수': 'const char *'의 간접 참조 수준이 'char'과(와) 다릅니다.
-C:\Users\최재혁\Documents\github\Tcp_Socket_Programming\echo_server\echo_client.c(59,43): warning C4024: 'inet_addr': 형식 및 실제 매개 변수 1의 형식이 서로 다릅니다.
-C:\Users\최재혁\Documents\github\Tcp_Socket_Programming\echo_server\echo_client.c(60,40): warning C4047: '함수': 'const char *'의 간접 참조 수준이 'char'과(와) 다릅니다.
-C:\Users\최재혁\Documents\github\Tcp_Socket_Programming\echo_server\echo_client.c(60,37): warning C4024: 'atoi': 형식 및 실제 매개 변수 1의 형식이 서로 다릅니다.
