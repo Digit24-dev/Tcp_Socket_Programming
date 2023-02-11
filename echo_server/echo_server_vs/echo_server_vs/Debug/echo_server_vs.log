@@ -1,0 +1,12 @@
+﻿echo_server.obj : error LNK2019: _accept@12_main 함수에서 참조되는 확인할 수 없는 외부 기호
+echo_server.obj : error LNK2019: _bind@12_main 함수에서 참조되는 확인할 수 없는 외부 기호
+echo_server.obj : error LNK2019: _closesocket@4_main 함수에서 참조되는 확인할 수 없는 외부 기호
+echo_server.obj : error LNK2019: _htonl@4_main 함수에서 참조되는 확인할 수 없는 외부 기호
+echo_server.obj : error LNK2019: _htons@4_main 함수에서 참조되는 확인할 수 없는 외부 기호
+echo_server.obj : error LNK2019: _listen@8_main 함수에서 참조되는 확인할 수 없는 외부 기호
+echo_server.obj : error LNK2019: _recv@16_main 함수에서 참조되는 확인할 수 없는 외부 기호
+echo_server.obj : error LNK2019: _send@16_main 함수에서 참조되는 확인할 수 없는 외부 기호
+echo_server.obj : error LNK2019: _socket@12_main 함수에서 참조되는 확인할 수 없는 외부 기호
+echo_server.obj : error LNK2019: _WSAStartup@8_main 함수에서 참조되는 확인할 수 없는 외부 기호
+echo_server.obj : error LNK2019: _WSACleanup@0_main 함수에서 참조되는 확인할 수 없는 외부 기호
+C:\Users\최재혁\Documents\github\Tcp_Socket_Programming\echo_server\echo_server_vs\Debug\echo_server_vs.exe : fatal error LNK1120: 11개의 확인할 수 없는 외부 참조입니다.
