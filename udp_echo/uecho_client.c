@@ -16,35 +16,31 @@ int main(int argc, char *argv[])
 	socklen_t adr_sz;
 
 	struct sockaddr_in serv_adr, from_adr;
-	if(argc!=3)
+	if(argc!=2)
 	{
-		printf("Usage : %s <IP> <port>\n", argv[0]);
+		printf("Usage : %s <port>\n", argv[0]);
 		exit(1);
 	}
 
-	sock=socket(PF_INET, SOCK_DGRAM, 0);
-	if(sock == -1)
-		error_handling("socket() error");
+	serv_sock=socket(PF_INET, SOCK_DGRAM, 0);
+	if(serv_sock == -1)
+		error_handling("UDP socket creation error");
 
 	memset(&serv_adr, 0, sizeof(serv_adr));
 	serv_adr.sin_family=AF_INET;
-	serv_adr.sin_addr.s_addr=inet_addr(argv[1]);
-	serv_adr.sin_port=htons(atoi(argv[2]));
+	serv_adr.sin_addr.s_addr=htonl(INADDR_ANY);
+	serv_adr.sin_port=htons(atoi(argv[1]));
+
+	if(bind(serv_sock, (struct sockaddr*)&serv_adr, sizeof(serv_adr)) == -1)
+		error_handling("bind() error");
 
 	while(1)
 	{
-		fputs("Insert message(q to quit): ", stdout);
-		fgets(message, sizeof(message), stdin);
-		if(!strcmp(message, "q\n") || !strcmp(message, "Q\n"))
-			break;
-
-		sendto(sock, message, strlen(message), 0, (struct sockaddr*)&serv_adr, sizeof(serv_adr));
-		adr_sz=sizeof(from_adr);
-		str_len=recvfrom(sock, message, BUF_SIZE, 0, (struct sockaddr*)&from_adr, &adr_sz);
-		message[str_len]=0;
-		printf("Message from server: %s", message);
+		clnt_adr_sz = sizeof(clnt_adr);
+		str_len=recvfrom(serv_sock, message, BUF_SIZE, 0, (struct sockaddr*)&clnt_adr, &clnt_adr_sz);
+		sendto(serv_sock, message, str_len, 0, (struct sockaddr*)&clnt_adr, clnt_adr_sz);
 	}
-	close(sock);
+	close(serv_sock);
 	return 0;
 }
 
