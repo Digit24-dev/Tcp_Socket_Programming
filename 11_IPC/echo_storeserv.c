@@ -7,7 +7,8 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 
-#define BUF_SIZE 30
+#define BUF_SIZE 100
+
 
 void error_handling(char *message);
 
@@ -23,6 +24,7 @@ int main(int argc, char *argv[])
 {
 	int serv_sock, clnt_sock;
 	struct sockaddr_in serv_adr, clnt_adr;
+	int fds[2];
 
 	pid_t pid;
 	struct sigaction act;
@@ -51,6 +53,24 @@ int main(int argc, char *argv[])
 	if(listen(serv_sock, 5)==-1)
 		error_handling("listen() error");
 
+	pipe(fds);
+	pid=fork();
+	if(pid==0)
+	{
+		FILE * fp = fopen("echomsg.txt", "wt");
+		char msgbuf[BUF_SIZE];
+		int i, len;
+
+		for(i=0; i<10; i++)
+		{
+			len=read(fds[0], msgbuf, BUF_SIZE);
+			fwrite((void*)msgbuf, 1, len, fp);
+		}
+		fclose(fp);
+		return 0;
+	}
+
+
 	while(1)
 	{
 		adr_sz = sizeof(clnt_adr);
@@ -59,17 +79,16 @@ int main(int argc, char *argv[])
 			continue;
 		else
 			puts("new client connected...");
+
 		pid=fork();
-		if(pid==-1)
-		{
-			close(clnt_sock);
-			continue;
-		}
 		if(pid==0)
 		{
 			close(serv_sock);
 			while((str_len=read(clnt_sock, buf, BUF_SIZE))!=0)
+			{
 				write(clnt_sock, buf, str_len);
+				write(fds[1], buf, str_len);
+			}
 
 			close(clnt_sock);
 			puts("client disconnected...");
